@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.steffenl.doorbellapp.AppContainer;
 import com.steffenl.doorbellapp.R;
+import com.steffenl.doorbellapp.core.APIClient;
 import com.steffenl.doorbellapp.core.service.tasks.TaskCommand;
+import com.steffenl.doorbellapp.core.service.tasks.TaskQuery;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,6 +21,7 @@ public class MainViewModel extends ViewModel {
     private final MutableLiveData<Integer> statusText = new MutableLiveData<>();
     private final MutableLiveData<Boolean> showRingButton = new MutableLiveData<>();
     private final MutableLiveData<Integer> toastMessage = new MutableLiveData<>();
+    private final MutableLiveData<APIClient.DeviceHealthResponseData> deviceHealth = new MutableLiveData<>();
 
     private final AppContainer appContainer;
     private final Handler handler = new Handler(Looper.getMainLooper());
@@ -29,6 +32,10 @@ public class MainViewModel extends ViewModel {
 
     public LiveData<Integer> getStatusText() {
         return statusText;
+    }
+
+    public LiveData<APIClient.DeviceHealthResponseData> getDeviceHealth() {
+        return deviceHealth;
     }
 
     public LiveData<Boolean> getShowRingButton() {
@@ -51,6 +58,10 @@ public class MainViewModel extends ViewModel {
         toastMessage.setValue(resourceID);
     }
 
+    public void setDeviceHealth(final APIClient.DeviceHealthResponseData deviceHealth) {
+        this.deviceHealth.setValue(deviceHealth);
+    }
+
     public void ring() {
         appContainer.getAppService().ring(new TaskCommand.Callback() {
             @Override
@@ -61,6 +72,20 @@ public class MainViewModel extends ViewModel {
             @Override
             public void errored(final Exception exception) {
                 handler.post(() -> setToastMessage(R.string.ring_failed));
+            }
+        });
+    }
+
+    public void refresh() {
+        appContainer.getAppService().getDeviceHealth(new TaskQuery.Callback<APIClient.DeviceHealthResponseData>() {
+            @Override
+            public void completed(final APIClient.DeviceHealthResponseData result) {
+                handler.post(() -> setDeviceHealth(result));
+            }
+
+            @Override
+            public void errored(final Exception exception) {
+                handler.post(() -> setToastMessage(R.string.refresh_failed));
             }
         });
     }

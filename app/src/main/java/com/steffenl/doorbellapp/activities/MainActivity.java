@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements PreferenceFragmen
                     runOnUiThread(() -> {
                         mainViewModel.setStatusText(R.string.status_connected);
                     });
+                    mainViewModel.refresh();
                 });
                 socket.on(Socket.EVENT_DISCONNECT, args -> {
                     runOnUiThread(() -> {

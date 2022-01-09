@@ -19,7 +19,18 @@
     <string name="setting_api_endpoint_secure_title">Secure API Endpoint</string>
     <string name="setting_api_endpoint_secure_summary">Enable secure connection for API endpoint.</string>
     <string name="setting_always_emit_notification_sound_title">Always Emit Notification Sound.</string>
+    <string name="notification_battery_level_title">Doorbell battery</string>
+    <string name="notification_battery_level_moderate_text">Battery level is moderate.</string>
+    <string name="notification_battery_level_low_text">Battery level is low.</string>
+    <string name="notification_battery_level_critical_text">Battery level is critical.</string>
+    <string name="notification_device_gone_title">Doorbell device gone</string>
+    <string name="notification_device_gone_text">Device has not checked in for a while.</string>
     <string name="notification_ring_button_pressed_title">Doorbell</string>
     <string name="notification_ring_button_pressed_text">Button was pressed.</string>
     <string name="ring_failed">Ring failed.</string>
+    <string name="refresh">Refresh</string>
+    <string name="refresh_failed">Refresh failed</string>
+    <string name="device_health_firmware_version">Firmware version:</string>
+    <string name="device_health_battery_level">Battery level:</string>
+    <string name="device_health_battery_voltage">Battery voltage:</string>
 </resources>

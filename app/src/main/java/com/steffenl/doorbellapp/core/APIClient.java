@@ -1,5 +1,7 @@
 package com.steffenl.doorbellapp.core;
 
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 import com.steffenl.doorbellapp.core.config.APIConfig;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -38,5 +40,30 @@ public class APIClient {
                 .build();
         try (Response response = client.newCall(request).execute()) {
         }
+    }
+
+    public DeviceHealthResponseData getDeviceHealth() throws Exception {
+        final Request request = new Request.Builder()
+                .url(config.getEndpoint() + "/device-health")
+                .get()
+                .header("Accept", JSON.toString())
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            // TODO: Handle non-JSON response
+            final String json = response.body().string();
+            if (json.isEmpty()) {
+                return null;
+            }
+            final Moshi moshi = new Moshi.Builder().build();
+            final JsonAdapter<DeviceHealthResponseData> adapter = moshi.adapter(DeviceHealthResponseData.class);
+            final DeviceHealthResponseData responseData = adapter.fromJson(json);
+            return responseData;
+        }
+    }
+
+    public static class DeviceHealthResponseData {
+        public String batteryLevel;
+        public int batteryVoltage;
+        public String firmwareVersion;
     }
 }

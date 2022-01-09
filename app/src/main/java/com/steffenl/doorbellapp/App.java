@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.preference.PreferenceManager;
 import com.steffenl.doorbellapp.activities.CallActivity;
+import com.steffenl.doorbellapp.core.NotificationProcessor;
 import com.steffenl.doorbellapp.core.config.SharedPreferencesAppConfig;
 
 public class App extends Application {
@@ -23,6 +24,7 @@ public class App extends Application {
 
     final String CHANNEL_ID_ENFORCE_SOUND = "com.steffenl.doorbellapp.notifications.enforcesound";
     final String CHANNEL_ID_NORMAL = "com.steffenl.doorbellapp.notifications.normal";
+    final String CHANNEL_ID_ALERT = "com.steffenl.doorbellapp.notifications.alert";
 
     @Override
     public void onCreate() {
@@ -31,7 +33,17 @@ public class App extends Application {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         appContainer = new AppContainer(new SharedPreferencesAppConfig(preferences));
 
-        appContainer.getNotificationProcessor().addHandler("button_pressed", () -> {
+        addNotificationHandlers();
+    }
+
+    public AppContainer getAppContainer() {
+        return appContainer;
+    }
+
+    private void addNotificationHandlers() {
+        final NotificationProcessor notificationProcessor = appContainer.getNotificationProcessor();
+
+        notificationProcessor.addHandler("button_pressed", () -> {
             final boolean enforceSound = preferences.getBoolean("always_emit_notification_sound", false);
 
             final String channelID = enforceSound ? CHANNEL_ID_ENFORCE_SOUND : CHANNEL_ID_NORMAL;
@@ -61,6 +73,8 @@ public class App extends Application {
                 notificationManager.createNotificationChannel(channel);
             }
 
+            // TODO: Clean up code
+
             final Intent notificationIntent = new Intent(this, CallActivity.class);
             final PendingIntent notificationPendingIntent = PendingIntent.getActivity(
                     this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -78,9 +92,70 @@ public class App extends Application {
 
             notificationManager.notify(1001, notification);
         });
-    }
 
-    public AppContainer getAppContainer() {
-        return appContainer;
+        final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        final String alarmChannelName = "Doorbell Alarms";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.deleteNotificationChannel(CHANNEL_ID_ALERT);
+            final NotificationChannelCompat channel = new NotificationChannelCompat.Builder(CHANNEL_ID_ALERT, NotificationManagerCompat.IMPORTANCE_HIGH)
+                    .setName(alarmChannelName)
+                    .setVibrationEnabled(true)
+                    .setLightsEnabled(true)
+                    .build();
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationProcessor.addHandler("device_gone", () -> {
+            final Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_ALERT)
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setContentTitle(getString(R.string.notification_device_gone_title))
+                    .setContentText(getString(R.string.notification_device_gone_text))
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(Notification.CATEGORY_ALARM)
+                    .setLocalOnly(true)
+                    .build();
+
+            notificationManager.notify(1002, notification);
+        });
+
+        notificationProcessor.addHandler("battery_level_moderate", () -> {
+            final Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_ALERT)
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setContentTitle(getString(R.string.notification_battery_level_title))
+                    .setContentText(getString(R.string.notification_battery_level_moderate_text))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(Notification.CATEGORY_ALARM)
+                    .setLocalOnly(true)
+                    .build();
+
+            notificationManager.notify(1003, notification);
+        });
+
+        notificationProcessor.addHandler("battery_level_low", () -> {
+            final Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_ALERT)
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setContentTitle(getString(R.string.notification_battery_level_title))
+                    .setContentText(getString(R.string.notification_battery_level_low_text))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(Notification.CATEGORY_ALARM)
+                    .setLocalOnly(true)
+                    .build();
+
+            notificationManager.notify(1004, notification);
+        });
+
+        notificationProcessor.addHandler("battery_level_critical", () -> {
+            final Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID_ALERT)
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setContentTitle(getString(R.string.notification_battery_level_title))
+                    .setContentText(getString(R.string.notification_battery_level_critical_text))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(Notification.CATEGORY_ALARM)
+                    .setLocalOnly(true)
+                    .build();
+
+            notificationManager.notify(1005, notification);
+        });
     }
 }

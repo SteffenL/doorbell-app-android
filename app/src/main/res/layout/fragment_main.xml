@@ -4,11 +4,47 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/status_text_view" android:textAlignment="center"/>
     <Button
             android:text="@string/ring"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/ring_button"/>
-    <TextView
+    <Button
+            android:text="@string/refresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/status_text_view" android:textAlignment="center"/>
+            android:layout_height="wrap_content" android:id="@+id/refresh_button"/>
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView
+                    android:text="@string/device_health_firmware_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/firmware_version_label_text_view"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/firmware_version_value_text_view"/>
+        </TableRow>
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView
+                    android:text="@string/device_health_battery_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/battery_level_label_text_view"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/battery_level_value_text_view"/>
+        </TableRow>
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TextView
+                    android:text="@string/device_health_battery_voltage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/battery_voltage_label_text_view"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/battery_voltage_value_text_view"/>
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

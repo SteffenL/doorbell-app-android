@@ -3,6 +3,7 @@ package com.steffenl.doorbellapp.core.service;
 import com.steffenl.doorbellapp.core.APIClient;
 import com.steffenl.doorbellapp.core.service.tasks.TaskCommand;
 import com.steffenl.doorbellapp.core.service.tasks.TaskExecutor;
+import com.steffenl.doorbellapp.core.service.tasks.TaskQuery;
 
 public class AppService {
     private final TaskExecutor executor;
@@ -19,5 +20,9 @@ public class AppService {
 
     public void ring(final TaskCommand.Callback callback) {
         executor.submit(() -> apiClient.ring(), callback);
+    }
+
+    public void getDeviceHealth(final TaskQuery.Callback<APIClient.DeviceHealthResponseData> callback) {
+        executor.submit(() -> apiClient.getDeviceHealth(), callback);
     }
 }

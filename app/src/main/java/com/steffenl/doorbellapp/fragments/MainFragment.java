@@ -20,7 +20,11 @@ public class MainFragment extends Fragment {
     private SharedPreferences preferences;
 
     private Button ringButton;
+    private Button refreshButton;
     private TextView statusTextView;
+    private TextView firmwareVersionValueTextView;
+    private TextView batteryLevelValueTextView;
+    private TextView batteryVoltageValueTextView;
 
     public MainFragment() {
         super(R.layout.fragment_main);
@@ -37,10 +41,15 @@ public class MainFragment extends Fragment {
         preferences = PreferenceManager.getDefaultSharedPreferences(activity);
 
         ringButton = view.findViewById(R.id.ring_button);
+        refreshButton = view.findViewById(R.id.refresh_button);
         statusTextView = view.findViewById(R.id.status_text_view);
+        firmwareVersionValueTextView = view.findViewById(R.id.firmware_version_value_text_view);
+        batteryLevelValueTextView = view.findViewById(R.id.battery_level_value_text_view);
+        batteryVoltageValueTextView = view.findViewById(R.id.battery_voltage_value_text_view);
 
         statusTextView.setText(R.string.status_idle);
         ringButton.setOnClickListener(v -> viewModel.ring());
+        refreshButton.setOnClickListener(v -> viewModel.refresh());
 
         viewModel.getShowRingButton().observe(getViewLifecycleOwner(), show -> {
             ringButton.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -48,6 +57,12 @@ public class MainFragment extends Fragment {
 
         viewModel.getStatusText().observe(getViewLifecycleOwner(), resourceID -> {
             statusTextView.setText(resourceID);
+        });
+
+        viewModel.getDeviceHealth().observe(getViewLifecycleOwner(), deviceHealth -> {
+            firmwareVersionValueTextView.setText(deviceHealth.firmwareVersion);
+            batteryLevelValueTextView.setText(deviceHealth.batteryLevel);
+            batteryVoltageValueTextView.setText(String.valueOf(deviceHealth.batteryVoltage));
         });
     }
 }
