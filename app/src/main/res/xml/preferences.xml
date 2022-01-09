@@ -1,0 +1,24 @@
+<PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+            app:key="show_ring_button"
+            app:title="@string/setting_show_ring_button_title"/>
+
+    <EditTextPreference
+            app:key="api_endpoint"
+            app:title="@string/setting_api_endpoint_title"
+            app:summary="@string/setting_api_endpoint_summary"/>
+
+    <CheckBoxPreference
+            app:key="api_endpoint_secure"
+            app:title="@string/setting_api_endpoint_secure_title"
+            app:summary="@string/setting_api_endpoint_secure_summary"
+            app:defaultValue="true"/>
+
+    <CheckBoxPreference
+            app:key="always_emit_notification_sound"
+            app:title="@string/setting_always_emit_notification_sound_title"
+            app:defaultValue="false"/>
+
+</PreferenceScreen>

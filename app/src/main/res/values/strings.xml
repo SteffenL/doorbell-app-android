@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Doorbell App</string>
+    <string name="calling">Calling</string>
+    <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
+    <string name="ble_not_supported">BLE is not supported.</string>
+    <string name="wifi_direct_not_supported">WiFi Direct is not supported.</string>
+    <string name="ring">Ring</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
+    <string name="feature_not_yet_implemented">Feature is not yet implemented</string>
+    <string name="status_idle">Idle</string>
+    <string name="status_connecting">Connecting…</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_connection_error">Connection error</string>
+    <string name="setting_show_ring_button_title">Show Ring Button</string>
+    <string name="setting_api_endpoint_title">API Endpoint</string>
+    <string name="setting_api_endpoint_summary">Hostname of the API endpoint and optional port.</string>
+    <string name="setting_api_endpoint_secure_title">Secure API Endpoint</string>
+    <string name="setting_api_endpoint_secure_summary">Enable secure connection for API endpoint.</string>
+    <string name="setting_always_emit_notification_sound_title">Always Emit Notification Sound.</string>
+    <string name="notification_ring_button_pressed_title">Doorbell</string>
+    <string name="notification_ring_button_pressed_text">Button was pressed.</string>
+    <string name="ring_failed">Ring failed.</string>
+</resources>

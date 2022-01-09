@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1091299676033",
+    "project_id": "doorbell-1e0d0",
+    "storage_bucket": "doorbell-1e0d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091299676033:android:94424608bbdc044f68a280",
+        "android_client_info": {
+          "package_name": "com.steffenl.doorbellapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091299676033-a1s2om6sjbouh1e2shotnrnqnn13jsn5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd03KsGkszYG73yI7gFJCM4DD4ukHxbQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1091299676033-a1s2om6sjbouh1e2shotnrnqnn13jsn5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
