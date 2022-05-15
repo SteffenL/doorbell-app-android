@@ -42,7 +42,7 @@ public class MainViewModel extends ViewModel {
         return showRingButton;
     }
 
-     public LiveData<Integer> getToastMessage() {
+    public LiveData<Integer> getToastMessage() {
         return toastMessage;
      }
 
