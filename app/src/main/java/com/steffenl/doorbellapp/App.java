@@ -2,9 +2,7 @@ package com.steffenl.doorbellapp;
 
 import android.app.Application;
 import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.ContentResolver;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
