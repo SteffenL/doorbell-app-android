@@ -14,7 +14,7 @@ import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.preference.PreferenceManager;
-import com.steffenl.doorbellapp.activities.CallActivity;
+
 import com.steffenl.doorbellapp.core.NotificationProcessor;
 import com.steffenl.doorbellapp.core.config.SharedPreferencesAppConfig;
 
@@ -75,17 +75,12 @@ public class App extends Application {
 
             // TODO: Clean up code
 
-            final Intent notificationIntent = new Intent(this, CallActivity.class);
-            final PendingIntent notificationPendingIntent = PendingIntent.getActivity(
-                    this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
             final Notification notification = new NotificationCompat.Builder(this, channelID)
                     .setSmallIcon(R.drawable.notification_icon)
                     .setContentTitle(getString(R.string.notification_ring_button_pressed_title))
                     .setContentText(getString(R.string.notification_ring_button_pressed_text))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setCategory(Notification.CATEGORY_ALARM)
-                    .setFullScreenIntent(notificationPendingIntent, true)
                     .setSound(soundURI, AudioManager.STREAM_ALARM)
                     .setLocalOnly(true)
                     .build();

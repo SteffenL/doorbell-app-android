@@ -25,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CallActivity"/>
         <activity android:name=".activities.AppSettingsActivity"/>
 
         <service android:name=".services.MyFirebaseMessagingService" android:exported="false" android:enabled="true">
